@@ -40,6 +40,20 @@
     </style>
 </head>
 <body>
+    <!-- Хедер с навигацией -->
+    <header>
+        <div class="logo">CHAR</div>
+        <nav>
+            <ul class="nav-buttons">
+                {% if 'user_id' in session %}
+                {% else %}
+                    <li><a href="{{ url_for('main.register') }}" class="btn">Регистрация</a></li>
+                    <li><a href="{{ url_for('main.login') }}" class="btn">Вход</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
     <!-- Блок для уведомлений -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from . import db
@@ -47,12 +47,28 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # Проверка пользователя в базе данных
         user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            flash('Вы успешно вошли!')
-            return redirect(url_for('main.index'))
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            session['username'] = user.username
+            flash('Вы успешно вошли!', 'success')
+            return redirect(url_for('main.dashboard'))
         else:
-            flash('Неверный логин или пароль.')
+            flash('Неверный логин или пароль.', 'danger')
 
     return render_template('login.html')
+
+@main.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        flash('Сначала войдите в систему.', 'danger')
+        return redirect(url_for('main.login'))
+
+    user = User.query.get(session['user_id'])
+    return render_template('dashboard.html', username=user.username)
+
+@main.route('/logout')
+def logout():
+    session.clear()
+    flash('Вы вышли из аккаунта.', 'success')
+    return redirect(url_for('main.index'))
