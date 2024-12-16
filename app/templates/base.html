@@ -54,6 +54,11 @@
         </nav>
     </header>
 
+    <div class="header">
+        <a href="{{ url_for('main.dashboard') }}" class="btn-profile">Личный кабинет</a>
+    </div>
+    
+
     <!-- Блок для уведомлений -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

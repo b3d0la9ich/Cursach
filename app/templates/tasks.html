@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="task-container">
+    <h2 class="task-title">Создание задач</h2>
+
+    <!-- Форма для добавления задачи -->
+    <form action="{{ url_for('main.tasks') }}" method="POST" class="task-form">
+        <label for="task_name">Название задачи:</label>
+        <input type="text" id="task_name" name="task_name" placeholder="Введите задачу..." required>
+        <button type="submit" class="btn-add">Добавить задачу</button>
+    </form>
+
+    <!-- Список задач -->
+    <div class="task-list">
+        <h3>Ваши задачи:</h3>
+        <ul>
+            {% for task in tasks %}
+            <li class="task-item">
+                {{ task.name }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Кнопка очистки задач -->
+    <form action="{{ url_for('main.clear_tasks') }}" method="POST">
+        <button type="submit" class="btn-clear">Очистить список</button>
+    </form>
+</div>
+{% endblock %}
