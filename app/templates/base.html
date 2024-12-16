@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Стили для уведомлений */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            opacity: 0.95;
+            animation: fadeOut 3s forwards;
+        }
+
+        .alert-success {
+            background-color: #4CAF50; /* Зеленый для успешных сообщений */
+            border: 1px solid #3e8e41;
+        }
+
+        .alert-danger {
+            background-color: #f44336; /* Красный для ошибок */
+            border: 1px solid #e53935;
+        }
+
+        /* Анимация исчезновения */
+        @keyframes fadeOut {
+            0% { opacity: 0.95; }
+            80% { opacity: 0.5; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Блок для уведомлений -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div id="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Основной контент страницы -->
+    {% block content %}{% endblock %}
+
+    <!-- JavaScript для автоматического скрытия уведомлений -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const flashMessages = document.querySelectorAll(".flash-message");
+            flashMessages.forEach(message => {
+                setTimeout(() => {
+                    message.style.display = "none";
+                }, 3000); // Уведомление исчезнет через 3 секунды
+            });
+        });
+    </script>
+</body>
+</html>

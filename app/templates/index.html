@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAR</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">CHAR</div>
+    <nav>
+      <ul class="nav-buttons">
+        <li><a href="{{ url_for('main.register') }}" class="btn">Регистрация</a></li>
+        <li><a href="{{ url_for('main.login') }}" class="btn">Вход</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Добро пожаловать в CHAR</h1>
+      <p>Создаём технологии, вдохновляющие на перемены.</p>
+      <a href="#services" class="btn">Узнать больше</a>
+    </div>
+  </section>
+
+  <section id="about" class="section about-section">
+    <div class="about-content">
+      <h2>О нас</h2>
+      <p>
+        <strong>CHAR</strong> — это команда профессионалов, создающих инновационные решения для бизнеса.
+        Мы стремимся быть двигателем перемен в цифровом мире.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2024 CHAR. Все права защищены.</p>
+  </footer>
+</body>
+</html>
