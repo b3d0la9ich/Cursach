@@ -10,7 +10,7 @@ main = Blueprint('main', __name__, template_folder='templates', static_folder='s
 # Главная страница
 @main.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', page='home')
 
 
 # Регистрация пользователей
@@ -39,7 +39,7 @@ def register():
         flash('Регистрация успешна!', 'success')
         return redirect(url_for('main.login'))
 
-    return render_template('register.html')
+    return render_template('register.html', page='register')
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
@@ -62,25 +62,76 @@ def login():
         else:
             flash('Неправильный логин или пароль.', 'danger')
 
-    return render_template('login.html')
+    return render_template('login.html', page='login')
 
 
 # Личный кабинет (для всех пользователей)
+from .models import User  # Импорт модели User
+
 @main.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', username=current_user.username, role=current_user.role)
-
-
-# Страница для начальников
-@main.route('/admin')
-@login_required
-def admin():
     if current_user.role != 'начальник':
-        flash('У вас нет доступа к этой странице.', 'danger')
-        return redirect(url_for('main.dashboard'))
-    return render_template('admin.html')
+        flash("У вас нет доступа к этому разделу.", "danger")
+        return redirect(url_for('main.index'))
+    
+    # Получаем всех сотрудников
+    employees = User.query.filter(User.role == 'Сотрудник').all()
 
+    return render_template('dashboard.html', employees=employees, page='dashboard')
+
+@main.route('/employees', methods=['GET', 'POST'])
+@login_required
+def employees():
+    if request.method == 'POST':
+        # Получаем ID сотрудника из формы
+        employee_id = request.form.get('employee_id')
+        employee = User.query.get(employee_id)
+        
+        if employee and employee.role == 'сотрудник' and not employee.manager_id:
+            # Назначаем сотруднику текущего пользователя как начальника
+            employee.manager_id = current_user.id
+            db.session.commit()
+
+    # Список сотрудников
+    my_employees = User.query.filter_by(manager_id=current_user.id).all()
+    all_employees = User.query.filter_by(role='сотрудник', manager_id=None).all()
+    
+    return render_template('employees.html', my_employees=my_employees, all_employees=all_employees, page='employees')
+
+@main.route('/remove_employee/<int:user_id>', methods=['POST'])
+@login_required
+def remove_employee(user_id):
+    if current_user.role != 'начальник':  # Проверка роли
+        flash("У вас нет прав для выполнения этого действия.", "danger")
+        return redirect(url_for('main.dashboard'))
+
+    employee = User.query.get_or_404(user_id)
+    if employee.manager_id == current_user.id:
+        employee.manager_id = None  # Сбрасываем менеджера у сотрудника
+        db.session.commit()
+        flash(f"Сотрудник {employee.username} был успешно освобождён.", "success")
+    else:
+        flash("Этот сотрудник не принадлежит вам.", "danger")
+
+    return redirect(url_for('main.employees'))  # Возврат к просмотру сотрудников
+
+@main.route('/assign_employee/<int:user_id>', methods=['POST'])
+@login_required
+def assign_employee(user_id):
+    if current_user.role != 'начальник':  # Проверка роли
+        flash("У вас нет прав для выполнения этого действия.", "danger")
+        return redirect(url_for('main.dashboard'))
+
+    employee = User.query.get_or_404(user_id)
+    if employee.manager_id is None:  # Проверяем, что сотрудник свободен
+        employee.manager_id = current_user.id
+        db.session.commit()
+        flash(f"Сотрудник {employee.username} был успешно добавлен в вашу команду.", "success")
+    else:
+        flash("Этот сотрудник уже имеет начальника.", "danger")
+
+    return redirect(url_for('main.employees'))
 
 # Выход из системы
 @main.route('/logout', methods=['GET', 'POST'])
@@ -95,6 +146,10 @@ def logout():
 @main.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def tasks():
+    if current_user.role != 'начальник':
+        flash('У вас нет доступа к этой странице.', 'danger')
+        return redirect(url_for('main.dashboard'))
+
     if request.method == 'POST':
         task_name = request.form.get('task_name')
 
@@ -112,7 +167,8 @@ def tasks():
 
     # Получение всех задач пользователя
     tasks = Task.query.filter_by(created_by=current_user.id).all()
-    return render_template('tasks.html', tasks=tasks)
+    return render_template('tasks.html', tasks=tasks, page='tasks')
+
 
 @main.route('/clear_tasks', methods=['POST'])
 @login_required

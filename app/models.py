@@ -6,11 +6,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def load_user(user_id):
     return User.query.get(int(user_id))  # Функция загрузки пользователя по ID
 
-class User(db.Model, UserMixin):  # Наследуем UserMixin
+# models.py
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    role = db.Column(db.String(20), nullable=False, default='сотрудник')  # Поле роли
+    role = db.Column(db.String(20), nullable=False, default='сотрудник')
+    manager_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Ссылка на начальника
+
+    # Связь с подчинёнными
+    subordinates = db.relationship('User', backref=db.backref('manager', remote_side=[id]))
 
     def set_password(self, password):
         self.password = generate_password_hash(password)

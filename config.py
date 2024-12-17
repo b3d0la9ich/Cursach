@@ -1,4 +1,5 @@
 import os
+from flask_migrate import Migrate
 
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv(

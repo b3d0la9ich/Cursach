@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHAR</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>CHAR - Добро пожаловать</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
+  <!-- Хедер с логотипом и кнопками -->
   <header>
     <div class="logo">CHAR</div>
     <nav>
@@ -17,24 +18,46 @@
     </nav>
   </header>
 
+  <!-- Героическая секция -->
   <section class="hero">
     <div class="hero-content">
       <h1>Добро пожаловать в CHAR</h1>
       <p>Создаём технологии, вдохновляющие на перемены.</p>
-      <a href="#services" class="btn">Узнать больше</a>
+      <a href="#about" class="btn btn-main">Узнать больше</a>
     </div>
   </section>
 
+  <!-- О нас -->
   <section id="about" class="section about-section">
     <div class="about-content">
       <h2>О нас</h2>
       <p>
-        <strong>CHAR</strong> — это команда профессионалов, создающих инновационные решения для бизнеса.
-        Мы стремимся быть двигателем перемен в цифровом мире.
+        <strong>CHAR</strong> — команда профессионалов, создающая инновационные решения для бизнеса.
+        Мы стремимся вдохновлять на цифровые изменения и помогать компаниям расти.
       </p>
     </div>
   </section>
 
+  <!-- Услуги -->
+  <section id="services" class="section services-section">
+    <h2>Наши услуги</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3>Двигаем ваш бизнес</h3>
+        <p>Создаём надёжные и масштабируемые приложения для бизнеса.</p>
+      </div>
+      <div class="card">
+        <h3>Помощь начинаюищим предпринимателям</h3>
+        <p>Стуктурируем задачи для работников.</p>
+      </div>
+      <div class="card">
+        <h3>Техподдержка</h3>
+        <p>Обеспечиваем бесперебойную работу для наших клиентов.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
   <footer>
     <p>© 2024 CHAR. Все права защищены.</p>
   </footer>

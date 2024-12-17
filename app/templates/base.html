@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Мой сайт{% endblock %}</title>
-    <!-- Подключение стилей -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Подключение базовых стилей -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    
+    <!-- Подключение стилей для конкретной страницы -->
+    {% if page == 'home' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    {% elif page == 'register' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    {% elif page == 'login' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    {% elif page == 'tasks' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/tasks.css') }}">
+    {% elif page == 'dashboard' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    {% elif page == 'employees' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/employee_view.css') }}">
+    {% endif %}
+
     <style>
         /* Стили для уведомлений */
         .flash-message {
@@ -45,19 +61,21 @@
         <div class="logo">CHAR</div>
         <nav>
             <ul class="nav-buttons">
-                {% if 'user_id' in session %}
+                {% if current_user.is_authenticated %}
+                    <!-- Личный кабинет только на tasks и для начальника -->
+                    {% if request.endpoint == 'main.tasks' and current_user.role == 'начальник' %}
+                        <li>
+                            <a href="{{ url_for('main.dashboard') }}" class="btn btn-lk">Личный кабинет</a>
+                        </li>
+                    {% endif %}
                 {% else %}
+                    <!-- Регистрация и вход для неаутентифицированных пользователей -->
                     <li><a href="{{ url_for('main.register') }}" class="btn">Регистрация</a></li>
                     <li><a href="{{ url_for('main.login') }}" class="btn">Вход</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
-
-    <div class="header">
-        <a href="{{ url_for('main.dashboard') }}" class="btn-profile">Личный кабинет</a>
-    </div>
-    
 
     <!-- Блок для уведомлений -->
     {% with messages = get_flashed_messages(with_categories=true) %}

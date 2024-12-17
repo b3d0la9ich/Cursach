@@ -1,18 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="form-container">
-    <h1 class="form-title">Личный кабинет</h1>
-    <p><strong>Ваш логин:</strong> {{ username }}</p>
-    <p><strong>Должность:</strong> {{ role }}</p>
+<section class="hero">
+    <div class="dashboard-container">
+        <h1>Личный кабинет</h1>
+        <div class="dashboard-info">
+            <p>Добро пожаловать, <strong>{{ current_user.username }}</strong>!</p>
+            <p>Ваша роль: <strong>{{ current_user.role }}</strong></p>
+        </div>
 
-    <!-- Кнопка для выхода -->
-    <form action="{{ url_for('main.logout') }}" method="POST">
-        <button type="submit" class="btn-submit">Выйти</button>
-    </form>
-
-    <!-- Новая кнопка для создания задач -->
-    <div style="margin-top: 20px;">
-        <a href="{{ url_for('main.tasks') }}" class="btn-submit">Создать задачи</a>
+        <!-- Навигация по разделам -->
+        <div class="dashboard-sections">
+            <a href="{{ url_for('main.tasks') }}" class="dashboard-card">
+                <h2>Задачи</h2>
+                <p>Просмотр и управление вашими задачами.</p>
+            </a>
+            <a href="{{ url_for('main.employees') }}" class="dashboard-card">
+                <h2>Сотрудники</h2>
+                <p>Просмотр своих и доступных сотрудников.</p>
+            </a>
+            <a href="{{ url_for('main.logout') }}" class="dashboard-card logout-card">
+                <h2>Выход</h2>
+                <p>Выйти из личного кабинета.</p>
+            </a>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}
