@@ -1,0 +1,184 @@
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+    margin: 0;
+}
+
+.manage-employees-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    max-width: 900px;
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+h1 {
+    font-size: 36px;
+    color: #1565c0;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 28px;
+    color: #1e88e5;
+    margin-bottom: 20px;
+    border-left: 5px solid #1e88e5;
+    padding-left: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.employees-section {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.employees-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.employee-card {
+    background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 8px solid #1e88e5;
+}
+
+.employee-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.employee-name {
+    font-size: 18px;
+    color: #1565c0;
+    font-weight: bold;
+}
+
+.navbar {
+    background-color: #1e88e5;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Ссылки в навигации */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #bbdefb;
+}
+
+.nav-link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+    margin: auto;
+}
+
+.nav-link:hover:after {
+    width: 60%;
+}
+
+.add-btn,
+.remove-btn {
+    background-color: #1e88e5;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-btn:hover {
+    background-color: #42a5f5;
+    transform: scale(1.05);
+}
+
+.remove-btn {
+    background-color: #e53935;
+}
+
+.remove-btn:hover {
+    background-color: #f44336;
+    transform: scale(1.05);
+}
+
+.no-employees {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .employee-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-btn,
+    .remove-btn {
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет сотрудника{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/employee_dashboard.css') }}">
+<!-- Подключение SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Личный кабинет сотрудника</h1>
+        <p>Добро пожаловать, {{ user.username }}!</p>
+    </div>
+    <div class="dashboard-links">
+        <!-- Кнопка-ссылка на страницу "Команда" -->
+        <a href="{{ url_for('team') }}" class="btn">
+            <i class="fas fa-users"></i> Команда
+        </a>
+    
+        <!-- Кнопка-ссылка на страницу "Личные задачи" -->
+        <a href="{{ url_for('employee_tasks') }}" class="btn">
+            <i class="fas fa-tasks"></i> Личные задачи
+        </a>
+    
+        <!-- Кнопка "Уволиться" -->
+        <button type="button" class="btn btn-danger resign-button">
+            <i class="fas fa-sign-out-alt"></i> Уволиться
+        </button>
+    </div>    
+</div>
+
+<script>
+    // Функция для отображения модальных окон
+    function showModal(title, text, icon) {
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: icon,
+            confirmButtonText: 'Понятно',
+        });
+    }
+
+    // Обработчик для кнопки "Уволиться"
+    document.querySelector('.resign-button').addEventListener('click', function (event) {
+        event.preventDefault(); // Отменяем стандартное действие
+
+        fetch('/resign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    // Если есть ошибка, показываем уведомление
+                    showModal('Ошибка!', data.error, 'error');
+                } else if (data.success) {
+                    // Если успех, показываем уведомление
+                    showModal('Успех!', data.success, 'success');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                showModal('Ошибка!', 'Что-то пошло не так. Попробуйте позже.', 'error');
+            });
+    });
+</script>
+{% endblock %}

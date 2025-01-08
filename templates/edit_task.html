@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Редактировать задачу{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_task.css') }}">
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Установка минимальной даты
+        const deadlineInput = document.getElementById("deadline");
+        const now = new Date();
+        const formattedNow = now.toISOString().slice(0, 16); // Получение текущей даты в формате yyyy-MM-ddTHH:mm
+        deadlineInput.setAttribute("min", formattedNow);
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="task-form-container">
+    <h1>Редактировать задачу</h1>
+    <form method="POST" class="task-form">
+        <div class="form-group">
+            <label for="title">Название задачи:</label>
+            <input type="text" name="title" id="title" value="{{ task.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Описание задачи:</label>
+            <textarea name="description" id="description" rows="4" required>{{ task.description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">Срок выполнения:</label>
+            <input type="datetime-local" name="deadline" id="deadline" value="{{ task.deadline.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

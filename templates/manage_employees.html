@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/manage_employees.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="manage-employees-container">
+    <h1>Управление сотрудниками</h1>
+
+    <div class="employees-section">
+        <h2>Доступные сотрудники</h2>
+        {% if available_employees %}
+        <ul class="employees-list">
+            {% for employee in available_employees %}
+            <li class="employee-card">
+                <span class="employee-name">{{ employee.username }}</span>
+                <a href="{{ url_for('add_employee', employee_id=employee.id) }}" class="add-btn">Добавить</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-employees">Нет доступных сотрудников.</p>
+        {% endif %}
+    </div>
+
+    <div class="employees-section">
+        <h2>Моя команда</h2>
+        {% if my_team %}
+        <ul class="employees-list">
+            {% for member in my_team %}
+            <li class="employee-card">
+                <span class="employee-name">{{ member.username }}</span>
+                <a href="{{ url_for('remove_employee', employee_id=member.id) }}" class="remove-btn">Удалить</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-employees">У вас пока нет команды.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

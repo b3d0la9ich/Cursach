@@ -1,0 +1,282 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px; /* Учитываем высоту хэдбара */
+    margin: 0;
+}
+
+.navbar {
+    background-color: #1e88e5;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Ссылки в навигации */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #bbdefb;
+}
+
+.nav-link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+    margin: auto;
+}
+
+.nav-link:hover:after {
+    width: 60%;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 20px 25px;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+
+    /* Добавляем для анимации появления */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.6s; /* Задержка появления для синхронизации с другими кнопками */
+}
+
+.btn-danger::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.btn-danger:hover::before {
+    top: 150%;
+    left: 150%;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Основной контейнер дашборда */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    width: 100%;
+    height: 100%; /* Убедитесь, что main занимает всю высоту */
+    padding-top: 80px; /* Учитываем высоту хедера */
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* Анимация появления */
+    opacity: 0; /* Начальная прозрачность */
+    transform: translateY(20px); /* Начальная позиция */
+    animation: fadeInUp 0.8s ease-out forwards; /* Применение анимации */
+}
+
+/* Заголовок дашборда */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    font-size: 20px;
+    color: #7f8c8d;
+}
+
+/* Ссылки/кнопки дашборда */
+.dashboard-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+}
+
+.dashboard-links a.btn {
+    background-color: #1abc9c;
+    color: #ffffff;
+    padding: 20px 25px;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-links a.btn i {
+    margin-right: 10px;
+    font-size: 22px;
+}
+
+.dashboard-links a.btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.dashboard-links a.btn:hover::before {
+    top: 150%;
+    left: 150%;
+}
+
+.dashboard-links a.btn:hover {
+    background-color: #16a085;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 30px 15px;
+    }
+
+    .dashboard-links {
+        gap: 20px;
+    }
+
+    .dashboard-links a.btn {
+        width: 200px;
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+}
+
+/* Добавление плавных переходов для всей страницы */
+body, .dashboard-container, .dashboard-header, .dashboard-links {
+    transition: all 0.3s ease;
+}
+
+/* Дополнительные стили для более современного вида */
+.dashboard-links a.btn:hover {
+    cursor: pointer;
+}
+
+.dashboard-links a.btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Анимация появления */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-links a.btn {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+.dashboard-links a.btn:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.dashboard-links a.btn:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.dashboard-links button.btn-danger {
+    animation-delay: 0.5s; /* Задержка появления кнопки "Уволиться" */
+}

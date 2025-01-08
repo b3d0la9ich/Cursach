@@ -1,0 +1,167 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Навигационная панель */
+.navbar {
+    background-color: #1e88e5;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Прилегание к верхнему краю */
+    width: 100%; /* Растягивание на всю ширину */
+    z-index: 1000; /* Поверх остального контента */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Расстояние между ссылками */
+}
+
+/* Ссылки в навигации */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #bbdefb;
+}
+
+.nav-link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+    margin: auto;
+}
+
+.nav-link:hover:after {
+    width: 60%;
+}
+
+.completed-tasks-container {
+    max-width: 1200px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.completed-tasks-container h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #1e88e5;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Сетка задач */
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Автоматическая подстройка под ширину */
+    gap: 20px; /* Расстояние между карточками */
+    padding: 20px 0;
+}
+
+.task-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: slideUp 0.5s ease-in-out;
+}
+
+.task-card.completed-late {
+    border-color: #d32f2f;
+}
+
+.task-card.completed-on-time {
+    border-color: #43a047;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e88e5;
+}
+
+.status {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.status-late {
+    background-color: #d32f2f;
+    color: #ffffff;
+}
+
+.status-on-time {
+    background-color: #43a047;
+    color: #ffffff;
+}
+
+.task-details {
+    font-size: 14px;
+    color: #555555;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

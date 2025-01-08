@@ -1,0 +1,149 @@
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Навигационная панель */
+.navbar {
+    background-color: #1e88e5;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Прилегание к верхнему краю */
+    width: 100%; /* Растягивание на всю ширину */
+    z-index: 1000; /* Поверх остального контента */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Расстояние между ссылками */
+}
+
+/* Ссылки в навигации */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #bbdefb;
+}
+
+.nav-link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+    margin: auto;
+}
+
+.nav-link:hover:after {
+    width: 60%;
+}
+
+/* Контейнер */
+.assign-tasks-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+.assign-tasks-container h1 {
+    font-size: 28px;
+    color: #1565c0;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.assign-tasks-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Метки и списки */
+.assign-tasks-container label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e88e5;
+    text-align: left;
+}
+
+.assign-tasks-container select {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.assign-tasks-container select:focus {
+    border-color: #1e88e5;
+    outline: none;
+}
+
+/* Кнопка */
+.assign-tasks-container button {
+    background-color: #1e88e5;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.assign-tasks-container button:hover {
+    background-color: #1565c0;
+    transform: scale(1.05);
+}
+
+.assign-tasks-container button:active {
+    transform: scale(1);
+}
+
+/* Сообщение об отсутствии задач */
+.assign-tasks-container p {
+    font-size: 16px;
+    color: #455a64;
+    margin-top: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .assign-tasks-container {
+        padding: 20px;
+    }
+
+    .assign-tasks-container h1 {
+        font-size: 24px;
+    }
+
+    .assign-tasks-container label {
+        font-size: 14px;
+    }
+
+    .assign-tasks-container button {
+        font-size: 14px;
+    }
+}

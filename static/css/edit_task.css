@@ -1,0 +1,151 @@
+/* Сброс отступов для body и html */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+/* Навигационная панель */
+.navbar {
+    background-color: #1e88e5;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 0; /* Убираем возможные отступы */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #bbdefb;
+}
+
+.nav-link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+    margin: auto;
+}
+
+.nav-link:hover:after {
+    width: 60%;
+}
+
+/* Контейнер формы */
+.task-form-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    margin: 100px auto 20px auto;
+    animation: fadeIn 0.6s ease-out;
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+input:focus, textarea:focus {
+    border-color: #1e88e5;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(30, 136, 229, 0.2);
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #1e6fa5;
+    transform: translateY(0);
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Мелкие улучшения */
+textarea {
+    resize: none;
+    min-height: 100px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .task-form-container {
+        padding: 30px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}

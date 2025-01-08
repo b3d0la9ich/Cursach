@@ -1,0 +1,176 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрирование по вертикали */
+    align-items: center; /* Центрирование по горизонтали */
+}
+
+/* Навигационная панель */
+.navbar {
+    background-color: #1e88e5;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Прилегание к верхнему краю */
+    width: 100%; /* Растягивание на всю ширину */
+    z-index: 1000; /* Поверх остального контента */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Расстояние между ссылками */
+}
+
+/* Ссылки в навигации */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #bbdefb;
+}
+
+.nav-link:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+    margin: auto;
+}
+
+.nav-link:hover:after {
+    width: 60%;
+}
+
+
+/* Контейнер задач */
+.tasks-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    max-width: 1000px;
+    width: 100%;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Заголовок */
+.tasks-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tasks-header h1 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+/* Таблица */
+.tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+.tasks-table th,
+.tasks-table td {
+    text-align: left;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.tasks-table th {
+    background-color: #1e88e5;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tasks-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tasks-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Анимация появления */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #45a049;
+}
+
+.btn-disabled {
+    background-color: #d3d3d3;
+    color: #666;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: not-allowed;
+    font-size: 14px;
+}
+
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+.btn-delete:active {
+    background-color: #a93226;
+}
+
+

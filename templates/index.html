@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Добро пожаловать на сайт!</h1>
+
+    {% if not current_user.is_authenticated %}
+        <p>Вы впервые у нас?</p>
+        <div>
+            <a href="{{ url_for('login') }}">Нет</a>
+            <a href="{{ url_for('register') }}">Да</a>
+        </div>
+    {% else %}
+        <p>Заходи в личный кабинет!</p>
+        <div>
+            <a href="{{ url_for('dashboard') }}">Перейти в личный кабинет</a>
+        </div>
+    {% endif %}
+</div>
+<footer>
+    &copy; 2024 CHAR. Все права защищены.
+</footer>
+{% endblock %}

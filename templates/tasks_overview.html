@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Задачи</h1>
+<ul>
+    {% for task in tasks %}
+    <li>
+        <strong>{{ task.title }}</strong>: {{ task.description }}
+        {% if task.status == 'не выполнена' %}
+        <span style="color: red;">(Не выполнена)</span>
+        {% else %}
+        <span style="color: green;">(Выполнена)</span>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

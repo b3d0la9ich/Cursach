@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Личные задачи{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tasks.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="tasks-container">
+    <h1>Личные задачи</h1>
+
+    <!-- Невыполненные задачи -->
+    <div class="tasks-section">
+        <h2>Невыполненные задачи</h2>
+        <div class="tasks-list">
+            {% if incomplete_tasks %}
+                {% for task in incomplete_tasks %}
+                <div class="task-card">
+                    <h3 class="task-title">{{ task.title }}</h3>
+                    <p class="task-desc">{{ task.description }}</p>
+                    <p class="task-deadline">Срок выполнения: {{ task.deadline.strftime('%d.%m.%Y %H:%M:%S') }}</p>
+                    
+                    <!-- Кнопка для выполнения задачи -->
+                    <form method="POST" action="{{ url_for('complete_task', task_id=task.id) }}" style="display: inline;">
+                        <button class="task-button">Выполнить задачу</button>
+                    </form>
+                    
+                    <!-- Кнопка для возврата задачи -->
+                    <form method="POST" action="{{ url_for('return_task', task_id=task.id) }}" style="display: inline;">
+                        <button class="task-button return-button">Вернуть задачу</button>
+                    </form>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Нет невыполненных задач.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Выполненные задачи -->
+    <div class="tasks-section">
+        <h2>Выполненные задачи</h2>
+        <div class="tasks-list">
+            {% if completed_tasks %}
+                {% for task in completed_tasks %}
+                <div class="task-card completed">
+                    <h3 class="task-title">{{ task.title }}</h3>
+                    <p class="task-desc">{{ task.description }}</p>
+                    <p class="task-deadline">Срок выполнения: {{ task.deadline.strftime('%d.%m.%Y %H:%M:%S') }}</p>
+                    <span class="task-status">Задача выполнена</span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Нет выполненных задач.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_task.css') }}">
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateInput = document.getElementById("deadline");
+        const taskForm = document.querySelector(".task-form");
+
+        // Set minimum date for the deadline
+        const now = new Date();
+        const minDate = now.toISOString().slice(0, 16);
+        dateInput.setAttribute("min", minDate);
+
+        // Check title and description on form submission
+        taskForm.addEventListener("submit", function (e) {
+            const title = document.getElementById("title").value.trim();
+            const description = document.getElementById("description").value.trim();
+
+            if (!title) {
+                alert("Название задачи не может быть пустым или состоять только из пробелов.");
+                e.preventDefault();
+            }
+
+            if (!description) {
+                alert("Описание задачи не может быть пустым или состоять только из пробелов.");
+                e.preventDefault();
+            }
+
+            if (dateInput.value < minDate) {
+                alert("Дата и время не могут быть меньше текущего момента!");
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="task-form-container">
+    <h1>Создать задачу</h1>
+    <form method="POST" class="task-form">
+        <div class="form-group">
+            <label for="title">Название задачи:</label>
+            <input type="text" name="title" id="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Описание задачи:</label>
+            <textarea name="description" id="description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">Срок выполнения:</label>
+            <input type="datetime-local" name="deadline" id="deadline" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Создать задачу</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/assign_tasks.css') }}">
+{% endblock %}
+{% block content %}
+<div class="assign-tasks-container">
+    <h1>Распределение задач</h1>
+
+    {% if tasks %}
+        <form method="POST">
+            <label for="task_id">Выберите задачу:</label>
+            <select name="task_id" class="select-field" required>
+                {% for task in tasks %}
+                    <option value="{{ task.id }}">{{ task.title }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="employee_id">Выберите сотрудника:</label>
+            <select name="employee_id" class="select-field" required>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.username }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="assign-button">Назначить</button>
+        </form>
+    {% else %}
+        <p>Нет задач для распределения.</p>
+    {% endif %}
+</div>
+{% endblock %}

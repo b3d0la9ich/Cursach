@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Ваша команда{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/team.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="team-container">
+    <div class="team-header">
+        <h1>Ваша команда</h1>
+        {% if manager %}
+        <div class="manager-info">
+            <h2>Ваш начальник:</h2>
+            <p>{{ manager.username }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if team %}
+    <div class="team-list">
+        <h2>Ваши коллеги:</h2>
+        <ul>
+            {% for member in team %}
+            <li>{{ member.username }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p class="no-team">У вас пока нет коллег.</p>
+    {% endif %}
+</div>
+{% endblock %}

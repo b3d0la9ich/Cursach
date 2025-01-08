@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/completed_tasks.css') }}">
+{% endblock %}
+{% block content %}
+<div class="completed-tasks-container">
+    <h1>Выполненные задачи</h1>
+    <div class="task-grid">
+        {% for task in tasks %}
+        <div class="task-card {% if task.completed_at > task.deadline %}completed-late{% else %}completed-on-time{% endif %}">
+            <div class="task-header">
+                <span class="task-title">{{ task.title }}</span>
+                {% if task.completed_at > task.deadline %}
+                <span class="status status-late">НЕ В СРОК</span>
+                {% else %}
+                <span class="status status-on-time">В СРОК</span>
+                {% endif %}
+            </div>
+            <div class="task-details">
+                <p>{{ task.description }}</p>
+                <p><strong>Срок выполнения:</strong> {{ task.deadline.strftime('%d.%m.%Y %H:%M') }}</p>
+                <p><strong>Завершена:</strong> {{ task.completed_at.strftime('%d.%m.%Y %H:%M') }}</p>
+                <p><strong>Выполнил(а):</strong> {{ task.employee.username if task.employee else "Неизвестно" }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
+</div>
+{% endblock %}

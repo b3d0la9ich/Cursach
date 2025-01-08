@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет начальника{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/manager_dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Личный кабинет начальника</h1>
+        <p>Добро пожаловать, <strong>{{ current_user.username }}</strong>!</p>
+    </div>
+    <div class="dashboard-links">
+        <a href="{{ url_for('manage_employees') }}" class="btn">
+            <i class="fas fa-users"></i> Сотрудники
+        </a>
+        <a href="{{ url_for('create_task') }}" class="btn">
+            <i class="fas fa-plus-circle"></i> Создать задачу
+        </a>
+        <a href="{{ url_for('assign_tasks') }}" class="btn">
+            <i class="fas fa-tasks"></i> Распределение задач
+        </a>
+        <a href="{{ url_for('completed_tasks') }}" class="btn">
+            <i class="fas fa-check-circle"></i> Выполненные задачи
+        </a>
+        <a href="{{ url_for('all_tasks') }}" class="btn">
+            <i class="fas fa-list"></i> Все задачи
+        </a>        
+    </div>
+</div>
+{% endblock %}
